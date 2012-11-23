@@ -4,7 +4,7 @@ var container = $('#inmidstofwar');
 
 var renderer = new THREE.WebGLRenderer();
 
-renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setSize650, 365);
 
 $container.append(renderer.domElement);
 
