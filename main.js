@@ -6,7 +6,7 @@ var renderer = new THREE.WebGLRenderer();
 
 renderer.setSize(650, 365);
 
-$container.append(renderer.domElement);
+container.append(renderer.domElement);
 
 var geometry = new THREE.CubeGeometry(1,1,1);
 var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
