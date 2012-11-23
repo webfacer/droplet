@@ -1,10 +1,11 @@
-var scene = new THREE.Scene();
+var scene;
 var cube;
 var camera;
 var render;
 
 function init() {
 
+	scene = new THREE.Scene();
 	camera = new THREE.PerspectiveCamera(75, 650/365, 0.1, 1000);
 	var container = $('#inmidstofwar');
 
