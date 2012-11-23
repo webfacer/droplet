@@ -1,5 +1,5 @@
 var scene;
-var cube;
+var warfin;
 var camera;
 var render;
 
@@ -14,11 +14,13 @@ function init() {
 	renderer.setSize(650, 365);
 
 	container.append(renderer.domElement);
-
-	var geometry = new THREE.CubeGeometry(1,1,1);
-	var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-	cube = new THREE.Mesh(geometry, material);
-	scene.add(cube);
+	
+	var loader = new THREE.JSONLoader();
+	
+	loader.load('https://raw.github.com/gnius/inmidstofwar/master/assets/objects/characters/warfin.js', function(geometry, material){
+		warfin = new THREE.Mesh(geometry, material);
+		scene.add(warfin);
+	});
 
 	camera.position.z = 5;
 
