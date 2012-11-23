@@ -1,9 +1,14 @@
+var scene = new THREE.Scene();
+var cube;
+var camera;
+var render;
+
 function init() {
-	var scene = new THREE.Scene();
-	var camera = new THREE.PerspectiveCamera(75, 650/365, 0.1, 1000);
+
+	camera = new THREE.PerspectiveCamera(75, 650/365, 0.1, 1000);
 	var container = $('#inmidstofwar');
 
-	var renderer = new THREE.WebGLRenderer();
+	renderer = new THREE.WebGLRenderer();
 
 	renderer.setSize(650, 365);
 
@@ -11,7 +16,7 @@ function init() {
 
 	var geometry = new THREE.CubeGeometry(1,1,1);
 	var material = new THREE.MeshBasicMaterial({color: 0x00ff00});
-	var cube = new THREE.Mesh(geometry, material);
+	cube = new THREE.Mesh(geometry, material);
 	scene.add(cube);
 
 	camera.position.z = 5;
