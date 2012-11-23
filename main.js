@@ -1,5 +1,5 @@
 var scene = new THREE.Scene();
-var camera = new THREE.PerspectiveCamera(75, 650/635, 0.1, 1000);
+var camera = new THREE.PerspectiveCamera(75, 650/365, 0.1, 1000);
 var container = $('#inmidstofwar');
 
 var renderer = new THREE.WebGLRenderer();
