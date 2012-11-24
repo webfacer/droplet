@@ -3,6 +3,8 @@ var warfin;
 var camera;
 var render;
 
+
+
 function init() {
 
 	scene = new THREE.Scene();
