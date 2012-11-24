@@ -17,10 +17,7 @@ function init() {
 	
 	var loader = new THREE.JSONLoader();
 	
-	loader.load('https://raw.github.com/gnius/inmidstofwar/master/assets/objects/characters/warfin.js', function(geometry, material){
-		warfin = new THREE.Mesh(geometry, material);
-		scene.add(warfin);
-	});
+	loader.load({ model : 'https://raw.github.com/gnius/inmidstofwar/master/assets/objects/characters/warfin.js', callback : loadObject});
 
 	camera.position.z = 5;
 
@@ -30,4 +27,17 @@ function init() {
 function render() {
 	requestAnimationFrame(render);
 	renderer.render(scene, camera);
+}
+
+
+function loadObject( geometry ) {
+
+	geometry.materials[0][0].shading = THREE.FlatShading;
+	geometry.materials[0][0].morphTargets = true;
+
+	var material = new THREE.MeshFaceMaterial();
+
+	mesh = new THREE.Mesh( geometry, material );
+
+	scene.add( mesh );
 }
