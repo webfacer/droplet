@@ -52,7 +52,7 @@ function init()
     
     charObj.file = 'drop.js';
     drop = new Physijs.BoxMesh(
-        new THREE.JSONLoader( drop.path+charObj.file, function( geometry, material ) {
+        new THREE.JSONLoader( charObj.path+charObj.file, function( geometry, material ) {
             mesh = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial({color:0x888888}) );
         }),
         new THREE.MeshBasicMaterial({ color: 0xFF0000 })
