@@ -11,7 +11,7 @@ var viewPort =  {
 // Gameobject properties
 var charObj = {
     weight  : 1000,
-    path    : 'assets/objects/charcters/',
+    path    : 'assets/objects/characters/',
     file     : null
 };
 
@@ -49,15 +49,15 @@ function init()
         1,
         1000
     );
+        
+    camera.position.z = 10;
     
     charObj.file = 'drop.js';
-    drop = new Physijs.BoxMesh(
-        new THREE.JSONLoader( charObj.path+charObj.file, function( geometry, material ) {
-            mesh = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial({color:0x888888}) );
-        }),
-        new THREE.MeshBasicMaterial({ color: 0xFF0000 })
-    );
-    scene.add( drop );
+    var loader = new THREE.JSONLoader();
+    loader.load( charObj.path+charObj.file , function( geometry ) {
+        drop = new Physijs.ConvexMesh( geometry, new THREE.MeshBasicMaterial({ color: 0xFF0000 }) );
+        scene.add( drop );
+    });
     render();
     
 }
