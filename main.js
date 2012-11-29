@@ -26,7 +26,7 @@ var lvl = {
 var staticObjs = {
 };
 
-var drop, mesh;
+var drop, mesh, keyboard;
 
 
 function init() 
@@ -43,6 +43,9 @@ function init()
     
     scene = new Physijs.Scene;
     
+    
+    // camera setting
+    
     camera = new THREE.PerspectiveCamera(
         75,
         viewPort.width/viewPort.height,
@@ -50,21 +53,40 @@ function init()
         1000
     );
         
-    camera.position.z = 10;
+    camera.position.z = 40;
     
+    // keyboard setup
+    keyboard = new THREEx.KeyboardState();
+    
+    // character setup
     charObj.file = 'drop.js';
     var loader = new THREE.JSONLoader();
-    loader.load( charObj.path+charObj.file , function( geometry ) {
-        drop = new Physijs.ConvexMesh( geometry, new THREE.MeshBasicMaterial({ color: 0xFF0000 }) );
+    loader.load( charObj.path+charObj.file , function( geometry, material ) {
+        drop = new Physijs.ConvexMesh( geometry, new THREE.MeshFaceMaterial( material ) );
+        scene.setGravity( 0, 10, 0 );
         scene.add( drop );
+        update();
     });
-    render();
     
+}
+
+function update() {
+    camera.position.y = drop.position.y;
+    if(keyboard.pressed('A')) {
+        drop.position.x--;
+    }
+    
+    if(keyboard.pressed('D')) {
+        drop.position.x++;
+    }
+    
+    drop.__dirtyPosition = true;
+    scene.simulate(); // run physics
+    render();
 }
 
 function render()
 {
-    scene.simulate(); // run physics
     renderer.render( scene, camera); // render the scene
-    requestAnimationFrame( render );
+    requestAnimationFrame( update );
 }
