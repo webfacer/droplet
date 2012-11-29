@@ -9,10 +9,10 @@ var viewPort =  {
 };
 
 // Gameobject properties
-var drop = {
+var charObj = {
     weight  : 1000,
     path    : 'assets/objects/charcters/',
-    src     : null
+    file     : null
 };
 
 // Level properties
@@ -25,6 +25,8 @@ var lvl = {
 // all static object properties
 var staticObjs = {
 };
+
+var drop, mesh;
 
 
 function init() 
@@ -48,6 +50,14 @@ function init()
         1000
     );
     
+    charObj.file = 'drop.js';
+    drop = new Physijs.BoxMesh(
+        new THREE.JSONLoader( drop.path+charObj.file, function( geometry, material ) {
+            mesh = new THREE.Mesh( geometry, new THREE.MeshBasicMaterial({color:0x888888}) );
+        }),
+        new THREE.MeshBasicMaterial({ color: 0xFF0000 })
+    );
+    scene.add( drop );
     render();
     
 }
