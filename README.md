@@ -1,1 +1,1 @@
-[game](https://github.com/gnius/droplet)
+[game](http://gnius.github.com/droplet/)
