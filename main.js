@@ -18,8 +18,11 @@ var charObj = {
 // Level properties
 var lvl = {
     gravity : 10,
-    speed   : 100 // maximum speed = 100%
+    speed   : 100, // maximum speed = 100%
+    bgMusic  : {}
 };
+
+var leftWind, rightWind;
 
 
 // all static object properties
@@ -28,44 +31,53 @@ var staticObjs = {
 
 var drop, mesh, keyboard, cloud = [];
 
+var aspect = viewPort.width/viewPort.height;
+
+// Physic xD velocity, seconds, acceleration,
 
 function init() 
 {
     // Render Scene, Canvas and Camera setups
+    
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize( viewPort.width, viewPort.height );
-
+    
     $container = $('#viewPort');
     $container.append( renderer.domElement );
     $canvas = $('canvas');
     $canvas.css('background-color', '#eebb00');
-
-    scene = new Physijs.Scene();
-
+    
+    scene = new Physijs.Scene;
+    lvl.bgMusic = document.getElementById('bgMusic');
+    
+    lvl.bgMusic.play();
+    
     // camera setting
+    
     camera = new THREE.PerspectiveCamera(
         75,
-        viewPort.width/viewPort.height,
+        aspect,
         1,
         1000
     );
-
+        
     camera.position.z = 40;
-
+    
     // keyboard setup
     keyboard = new THREEx.KeyboardState();
-
+    
     // character setup
     charObj.file = 'drop.js';
     var loader = new THREE.JSONLoader();
     loader.load( charObj.path+charObj.file , function( geometry, material ) {
         drop = new Physijs.ConvexMesh( geometry, new THREE.MeshFaceMaterial( material ) );
-        scene.setGravity( 0, 10, 0 );
+        scene.setGravity( new THREE.Vector3( 0, 0, 0 ) );
         scene.add( drop );
-
-    	loadLevel();
+        
+        loadLevel();
         update();
     });
+    
 }
 
 function loadLevel() {
@@ -75,23 +87,29 @@ function loadLevel() {
 	cloud[0]	= new THREE.Mesh( geometry, material );
 	
 	for( i = 1; i < 20; i++ ) {
-		cloud[i]	= cloud[0].clone();
-		cloud[i].position.set( THREE.Math.randFloat( -33, 33 ), -5, 0 );
-		scene.add(cloud[i]);
+            cloud[i]	= cloud[0].clone();
+            cloud[i].position.set( THREE.Math.randFloat( -33, 33 ), -5, 0 );
+            scene.add(cloud[i]);
 	}
 }
 
 function update() {
     camera.position.y = drop.position.y;
 	
-	cloud[5].position.y = camera.position.y + 10;
-
+    cloud[5].position.y = camera.position.y + 10;
+    
     if( keyboard.pressed( 'A' ) ) {
-        drop.position.x -= 1;
+        if(drop.position.x != 33) {
+            drop.position.x += 0.7;
+        }
     }
     if( keyboard.pressed( 'D' ) ) {
-        drop.position.x += 1;
+        if(drop.position.x != -33) {
+            drop.position.x -= 0.7;
+        }
     }
+    
+    
 
     drop.__dirtyPosition = true;
     scene.simulate(); // run physics
