@@ -18,18 +18,12 @@ var charObj = {
 // Level properties
 var lvl = {
     gravity : 10,
-<<<<<<< HEAD
-    speed   : 100 // maximum speed = 100%
-};
-
-=======
     speed   : 100, // maximum speed = 100%
     bgMusic  : {}
 };
 
 var leftWind, rightWind;
 
->>>>>>> origin/gh-pages
 
 // all static object properties
 var staticObjs = {
@@ -37,8 +31,6 @@ var staticObjs = {
 
 var drop, mesh, keyboard, cloud = [];
 
-<<<<<<< HEAD
-=======
 cloud.size = {
 	width	: 12,
 	height	: 5,
@@ -48,43 +40,18 @@ cloud.size = {
 var aspect = viewPort.width/viewPort.height;
 
 // Physic xD velocity, seconds, acceleration,
->>>>>>> origin/gh-pages
 
 function init() 
 {
     // Render Scene, Canvas and Camera setups
-<<<<<<< HEAD
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize( viewPort.width, viewPort.height );
-
-=======
     
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize( viewPort.width, viewPort.height );
     
->>>>>>> origin/gh-pages
     $container = $('#viewPort');
     $container.append( renderer.domElement );
     $canvas = $('canvas');
     $canvas.css('background-color', '#eebb00');
-<<<<<<< HEAD
-
-    scene = new Physijs.Scene();
-
-    // camera setting
-    camera = new THREE.PerspectiveCamera(
-        75,
-        viewPort.width/viewPort.height,
-        1,
-        1000
-    );
-
-    camera.position.z = 40;
-
-    // keyboard setup
-    keyboard = new THREEx.KeyboardState();
-
-=======
     
     scene = new Physijs.Scene;
     lvl.bgMusic = document.getElementById('bgMusic');
@@ -105,32 +72,10 @@ function init()
     // keyboard setup
     keyboard = new THREEx.KeyboardState();
     
->>>>>>> origin/gh-pages
     // character setup
     charObj.file = 'drop.js';
     var loader = new THREE.JSONLoader();
     loader.load( charObj.path+charObj.file , function( geometry, material ) {
-<<<<<<< HEAD
-        drop = new Physijs.ConvexMesh( geometry, new THREE.MeshFaceMaterial( material ) );
-        scene.setGravity( 0, 10, 0 );
-        scene.add( drop );
-
-    	loadLevel();
-        update();
-    });
-}
-
-function loadLevel() {
-    var geometry	= new THREE.CubeGeometry( 5, 2, 2 );
-	var material	= new THREE.MeshBasicMaterial( { color : 0x000000, wireframe : true } );
-
-	cloud[0]	= new THREE.Mesh( geometry, material );
-	
-	for( i = 1; i < 20; i++ ) {
-		cloud[i]	= cloud[0].clone();
-		cloud[i].position.set( THREE.Math.randFloat( -33, 33 ), -5, 0 );
-		scene.add(cloud[i]);
-=======
         drop = new Physijs.BoxMesh( geometry, new THREE.MeshBasicMaterial( {color:0xfffFFF} ) );
         scene.setGravity( new THREE.Vector3(0,-10,0) );
         scene.add( drop );
@@ -433,24 +378,11 @@ function loadLevel() {
 function addClouds(clouds) {
 	for( i = 0; i < clouds.length; i++ ) {
 		scene.add(clouds[i]);
->>>>>>> origin/gh-pages
 	}
 }
 
 function update() {
     camera.position.y = drop.position.y;
-<<<<<<< HEAD
-	
-	cloud[5].position.y = camera.position.y + 10;
-
-    if( keyboard.pressed( 'A' ) ) {
-        drop.position.x -= 1;
-    }
-    if( keyboard.pressed( 'D' ) ) {
-        drop.position.x += 1;
-    }
-
-=======
     console.log(drop.position);
     
     if( keyboard.pressed( 'A' ) ) {
@@ -459,7 +391,6 @@ function update() {
     else if( keyboard.pressed( 'D' ) ) {
             drop.position.x += 0.7;
     }
->>>>>>> origin/gh-pages
     drop.__dirtyPosition = true;
     scene.simulate(); // run physics
     render();
